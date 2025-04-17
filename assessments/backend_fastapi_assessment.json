@@ -1,0 +1,14 @@
+[
+    {
+        "level": 1,
+        "mcq": "Question: According to the provided text, which of the following best describes JavaScript?\n\nA. A compiled, single-paradigm language primarily used for server-side scripting.\nB. An interpreted, multi-paradigm language used mainly for web page scripting, but also in other environments.\nC. A compiled, object-oriented language exclusively used for web development.\nD. An interpreted, single-threaded language limited to browser environments.\n\nCorrect: B"
+    },
+    {
+        "level": 2,
+        "mcq": "Question: According to the provided text, which of the following best describes JavaScript?\n\nA. A compiled, single-paradigm language primarily used for server-side scripting.\nB. A lightweight, interpreted language supporting multiple programming paradigms, commonly used for web pages and other environments.\nC. A heavyweight, object-oriented language exclusively used for creating web applications.\nD. A markup language used to structure the content of web pages.\n\nCorrect: B"
+    },
+    {
+        "level": 3,
+        "mcq": "Question: According to the provided text, what are the standards for JavaScript?\n\nA.  The W3C HTML5 specification and the CSS3 specification.\nB.  The ECMAScript Language Specification (ECMA-262) and the HTTP protocol.\nC.  The ECMAScript Language Specification (ECMA-262) and the ECMAScript Internationalization API specification (ECMA-402).\nD.  The Java programming language standards and the JavaScript API specification.\n\nCorrect: C"
+    }
+]

@@ -1,0 +1,16 @@
+{
+    "frontend_react": {
+        "level": 1,
+        "mcqs": [
+            "Question: According to the provided text, what are the standard specifications for JavaScript?\n\nA.  The W3C HTML5 Specification and the CSS3 Specification\nB.  The ECMAScript Language Specification (ECMA-262) and the ECMAScript Internationalization API specification (ECMA-402)\nC.  The JavaScript API Specification and the DOM Specification\nD.  The Node.js Specification and the Apache CouchDB Specification\n\nCorrect: B"
+        ]
+    },
+    "backend_fastapi": {
+        "level": 2,
+        "mcqs": []
+    },
+    "data_science_numpy": {
+        "level": 2,
+        "mcqs": []
+    }
+}

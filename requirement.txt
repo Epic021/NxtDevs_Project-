@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+openai
+langchain
+chroma
+requests
+beautifulsoup4
+python-dotenv
+gunicorn
+asyncio
+jinja2
+pymysql
