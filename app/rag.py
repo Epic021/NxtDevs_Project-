@@ -5,7 +5,7 @@ from langchain_community.vectorstores import Chroma
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains import RetrievalQA
-from app.config import get_urls_for_topic
+from app.config import get_urls_for_topic, get_text_snippets_for_topic
 
 load_dotenv()  # Load environment variables
 
@@ -24,20 +24,19 @@ class RAGPipeline:
 
     def build_vectorstore(self, topic, subtopic):
         urls = get_urls_for_topic(topic, subtopic)
-        if not urls:
-            if topic == "frontend" and subtopic == "react":
-                urls = [
-                    "https://react.dev/learn",
-                    "https://react.dev/reference/react"
-                ]
-            else:
-                urls = ["https://developer.mozilla.org/en-US/docs/Web/JavaScript"]
+        texts = get_text_snippets_for_topic(topic, subtopic)
+        
+        if not urls and not texts:
+            raise ValueError(f"No URLs or text snippets found for topic '{topic}' and subtopic '{subtopic}'. Please check your config.")
         
         try:
             loader = WebBaseLoader(urls)
             docs = loader.load()
+            # Add text snippets as documents
+            docs.extend([{"page_content": text} for text in texts])
+            
             if not docs:
-                raise ValueError("No documents loaded")
+                raise ValueError(f"No documents loaded for topic '{topic}' and subtopic '{subtopic}'.")
             
             vectordb = Chroma.from_documents(docs, self.embeddings, persist_directory=self.persist_dir)
             return vectordb.as_retriever()
@@ -45,13 +44,14 @@ class RAGPipeline:
             raise ValueError(f"Error building vectorstore: {str(e)}")
 
     def adaptive_retrieve(self, retriever, query, threshold=0.75):
-        docs = retriever.get_relevant_documents(query)
+        # Update to use the new method `invoke`
+        docs = retriever.invoke(query)
         if not docs or len(docs) < 2:
-            docs = retriever.get_relevant_documents("more general " + query)
+            docs = retriever.invoke("more general " + query)
         return docs
 
-    def generate_mcq(self, query):
-        retriever = self.build_vectorstore("temp", "temp")  # dummy to initialize
+    def generate_mcq(self, topic, subtopic, query):
+        retriever = self.build_vectorstore(topic, subtopic)
         docs = self.adaptive_retrieve(retriever, query)
         context = "\n".join([doc.page_content for doc in docs[:2]])
         prompt = f"""
